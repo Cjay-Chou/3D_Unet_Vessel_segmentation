@@ -1,0 +1,9 @@
+rebuild.py list_hist13_1.txt -t list_hist13_2.txt -b 5
+rebuild.py list_hist8_1.txt -t list_hist8_2.txt -b 5 -c 9
+rebuild.py list_hist8_10_1.txt -t list_hist8_10_2.txt -b 6 -c 9
+rebuild.py list_hist8_org_1.txt -t list_hist8_org_2.txt -b 6 -c 9 --logdir log_origin
+rebuild.py list_hist8_org_1_15.txt -t list_hist8_org_16_20.txt -b 3 -c 9 --logdir log_orig_val
+rebuild.py list_hist8_05_1_15.txt -t list_hist8_05_16_20.txt -b 3 -c 9 --logdir log_05_val
+rebuild.py list_hist8_05f.txt -t list_hist8_05f_2.txt -b 3 -c 9 --logdir log_05_float
+rebuild_newloss.py list_hist8_05f.txt -t list_hist8_05f_2.txt -b 3 -c 9 --logdir log_05_float_newloss
+rebuild_newloss.py list_hist8_10f.txt -t list_hist8_10f_2.txt -b 3 -c 9 --logdir log_10_float_newloss
