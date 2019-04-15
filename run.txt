@@ -7,3 +7,5 @@ rebuild.py list_hist8_05_1_15.txt -t list_hist8_05_16_20.txt -b 3 -c 9 --logdir 
 rebuild.py list_hist8_05f.txt -t list_hist8_05f_2.txt -b 3 -c 9 --logdir log_05_float
 rebuild_newloss.py list_hist8_05f.txt -t list_hist8_05f_2.txt -b 3 -c 9 --logdir log_05_float_newloss
 rebuild_newloss.py list_hist8_10f.txt -t list_hist8_10f_2.txt -b 3 -c 9 --logdir log_10_float_newloss
+
+Test
