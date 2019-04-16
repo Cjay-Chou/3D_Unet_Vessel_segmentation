@@ -1,0 +1,21 @@
+rebuild.py list_hist13_1.txt -t list_hist13_2.txt -b 5
+rebuild.py list_hist8_1.txt -t list_hist8_2.txt -b 5 -c 9
+rebuild.py list_hist8_10_1.txt -t list_hist8_10_2.txt -b 6 -c 9
+rebuild.py list_hist8_org_1.txt -t list_hist8_org_2.txt -b 6 -c 9 --logdir log_origin
+rebuild.py list_hist8_org_1_15.txt -t list_hist8_org_16_20.txt -b 3 -c 9 --logdir log_orig_val
+rebuild.py list_hist8_05_1_15.txt -t list_hist8_05_16_20.txt -b 3 -c 9 --logdir log_05_val
+rebuild.py list_hist8_05f.txt -t list_hist8_05f_2.txt -b 3 -c 9 --logdir log_05_float
+rebuild_newloss.py list_hist8_05f.txt -t list_hist8_05f_2.txt -b 3 -c 9 --logdir log_05_float_newloss
+rebuild_newloss.py list_hist8_10f.txt -t list_hist8_10f_2.txt -b 3 -c 9 --logdir log_10_float_newloss
+rebuild_newloss.py list_hist8_org_1_15.txt -t list_hist8_org_16_20.txt -b 3 -c 9 --logdir log_org_newloss
+
+rebuild.py list_hist8_05b.txt -t list_hist8_05b_2.txt -b 3 -c 9 --logdir log_05_big
+rebuild.py list_hist8_05b_2.txt -t list_hist8_05b_t.txt -b 3 -c 9 --logdir log_05_big_2
+
+
+rebuild.py list_hist8_10b_2.txt -t list_hist8_10b_t.txt -b 3 -c 9 --logdir log_10_big_2
+rebuild.py list_hist8_org_2.txt -t list_hist8_org_t.txt -b 3 -c 9 --logdir log_org_val2
+rebuild_weighted_loss.py list_hist8_org_1_15.txt -t list_hist8_org_16_20.txt -b 3 -c 9 --logdir log_org_weightloss
+rebuild_weighted_loss.py list_hist8_25b_1_15.txt -t list_hist8_25b_16_20.txt -b 3 -c 9 --logdir log_25_weightloss
+rebuild_weighted_loss.py list_hist8_05b_1_15.txt -t list_hist8_05b_16_20.txt -b 3 -c 9 --logdir log_05b_weightloss_again2
+

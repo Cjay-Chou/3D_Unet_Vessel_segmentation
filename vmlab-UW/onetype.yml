@@ -1,0 +1,1275 @@
+backend: tensorflow
+class_name: Model
+config:
+  input_layers:
+  - [input, 0, 0]
+  layers:
+  - class_name: InputLayer
+    config:
+      batch_input_shape: !!python/tuple [null, 116, 124, 124, 1]
+      dtype: float32
+      name: input
+      sparse: false
+    inbound_nodes: []
+    name: input
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: &id001 !!python/tuple [1, 1, 1]
+      dtype: float32
+      filters: 32
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: &id002 !!python/tuple [3, 3, 3]
+      name: contract1_conv1
+      padding: valid
+      strides: &id003 !!python/tuple [1, 1, 1]
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - input
+        - 0
+        - 0
+        - {}
+    name: contract1_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract1_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract1_conv1
+        - 0
+        - 0
+        - {}
+    name: contract1_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract1_relu1, trainable: true}
+    inbound_nodes:
+    - - - contract1_BN1
+        - 0
+        - 0
+        - {}
+    name: contract1_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 64
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract1_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract1_relu1
+        - 0
+        - 0
+        - {}
+    name: contract1_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract1_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract1_conv2
+        - 0
+        - 0
+        - {}
+    name: contract1_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract1_relu2, trainable: true}
+    inbound_nodes:
+    - - - contract1_BN2
+        - 0
+        - 0
+        - {}
+    name: contract1_relu2
+  - class_name: MaxPooling3D
+    config:
+      data_format: channels_last
+      dtype: float32
+      name: contract1_pooling
+      padding: valid
+      pool_size: &id004 !!python/tuple [2, 2, 2]
+      strides: *id004
+      trainable: true
+    inbound_nodes:
+    - - - contract1_relu2
+        - 0
+        - 0
+        - {}
+    name: contract1_pooling
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 64
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract2_conv1
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract1_pooling
+        - 0
+        - 0
+        - {}
+    name: contract2_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract2_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract2_conv1
+        - 0
+        - 0
+        - {}
+    name: contract2_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract2_relu1, trainable: true}
+    inbound_nodes:
+    - - - contract2_BN1
+        - 0
+        - 0
+        - {}
+    name: contract2_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 128
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract2_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract2_relu1
+        - 0
+        - 0
+        - {}
+    name: contract2_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract2_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract2_conv2
+        - 0
+        - 0
+        - {}
+    name: contract2_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract2_relu2, trainable: true}
+    inbound_nodes:
+    - - - contract2_BN2
+        - 0
+        - 0
+        - {}
+    name: contract2_relu2
+  - class_name: MaxPooling3D
+    config:
+      data_format: channels_last
+      dtype: float32
+      name: contract2_pooling
+      padding: valid
+      pool_size: *id004
+      strides: *id004
+      trainable: true
+    inbound_nodes:
+    - - - contract2_relu2
+        - 0
+        - 0
+        - {}
+    name: contract2_pooling
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 128
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract3_conv1
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract2_pooling
+        - 0
+        - 0
+        - {}
+    name: contract3_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract3_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract3_conv1
+        - 0
+        - 0
+        - {}
+    name: contract3_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract3_relu1, trainable: true}
+    inbound_nodes:
+    - - - contract3_BN1
+        - 0
+        - 0
+        - {}
+    name: contract3_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 256
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract3_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract3_relu1
+        - 0
+        - 0
+        - {}
+    name: contract3_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract3_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract3_conv2
+        - 0
+        - 0
+        - {}
+    name: contract3_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract3_relu2, trainable: true}
+    inbound_nodes:
+    - - - contract3_BN2
+        - 0
+        - 0
+        - {}
+    name: contract3_relu2
+  - class_name: MaxPooling3D
+    config:
+      data_format: channels_last
+      dtype: float32
+      name: contract3_pooling
+      padding: valid
+      pool_size: *id004
+      strides: *id004
+      trainable: true
+    inbound_nodes:
+    - - - contract3_relu2
+        - 0
+        - 0
+        - {}
+    name: contract3_pooling
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 256
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract4_conv1
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract3_pooling
+        - 0
+        - 0
+        - {}
+    name: contract4_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract4_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract4_conv1
+        - 0
+        - 0
+        - {}
+    name: contract4_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract4_relu1, trainable: true}
+    inbound_nodes:
+    - - - contract4_BN1
+        - 0
+        - 0
+        - {}
+    name: contract4_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 512
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id002
+      name: contract4_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - contract4_relu1
+        - 0
+        - 0
+        - {}
+    name: contract4_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: contract4_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - contract4_conv2
+        - 0
+        - 0
+        - {}
+    name: contract4_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: contract4_relu2, trainable: true}
+    inbound_nodes:
+    - - - contract4_BN2
+        - 0
+        - 0
+        - {}
+    name: contract4_relu2
+  - class_name: Dropout
+    config: {dtype: float32, name: dropout, noise_shape: null, rate: 0.5, seed: null,
+      trainable: true}
+    inbound_nodes:
+    - - - contract4_relu2
+        - 0
+        - 0
+        - {}
+    name: dropout
+  - class_name: Cropping3D
+    config:
+      cropping: !!python/tuple
+      - !!python/tuple [4, 4]
+      - !!python/tuple [4, 4]
+      - !!python/tuple [4, 4]
+      data_format: channels_last
+      dtype: float32
+      name: cropping3d_1
+      trainable: true
+    inbound_nodes:
+    - - - contract3_relu2
+        - 0
+        - 0
+        - {}
+    name: cropping3d_1
+  - class_name: Conv3DTranspose
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dtype: float32
+      filters: !!python/object:tensorflow.python.framework.tensor_shape.Dimension {
+        _value: 512}
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: &id007 !!python/tuple [2, 2, 2]
+      name: expand3_upconv
+      padding: same
+      strides: &id008 !!python/tuple [2, 2, 2]
+      trainable: true
+      use_bias: false
+    inbound_nodes:
+    - - - dropout
+        - 0
+        - 0
+        - {}
+    name: expand3_upconv
+  - class_name: Concatenate
+    config: {axis: -1, dtype: float32, name: concatenate_1, trainable: true}
+    inbound_nodes:
+    - - - cropping3d_1
+        - 0
+        - 0
+        - &id005 {}
+      - - expand3_upconv
+        - 0
+        - 0
+        - *id005
+    name: concatenate_1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 256
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: &id006 !!python/tuple [3, 3, 3]
+      name: expand3_conv1
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_1
+        - 0
+        - 0
+        - {}
+    name: expand3_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: expand3_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - expand3_conv1
+        - 0
+        - 0
+        - {}
+    name: expand3_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: expand3_relu1, trainable: true}
+    inbound_nodes:
+    - - - expand3_BN1
+        - 0
+        - 0
+        - {}
+    name: expand3_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 256
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id006
+      name: expand3_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - expand3_relu1
+        - 0
+        - 0
+        - {}
+    name: expand3_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: expand3_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - expand3_conv2
+        - 0
+        - 0
+        - {}
+    name: expand3_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: expand3_relu2, trainable: true}
+    inbound_nodes:
+    - - - expand3_BN2
+        - 0
+        - 0
+        - {}
+    name: expand3_relu2
+  - class_name: Cropping3D
+    config:
+      cropping: !!python/tuple
+      - !!python/tuple [16, 16]
+      - !!python/tuple [16, 16]
+      - !!python/tuple [16, 16]
+      data_format: channels_last
+      dtype: float32
+      name: cropping3d_2
+      trainable: true
+    inbound_nodes:
+    - - - contract2_relu2
+        - 0
+        - 0
+        - {}
+    name: cropping3d_2
+  - class_name: Conv3DTranspose
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dtype: float32
+      filters: !!python/object:tensorflow.python.framework.tensor_shape.Dimension {
+        _value: 256}
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id007
+      name: expand2_upconv
+      padding: same
+      strides: *id008
+      trainable: true
+      use_bias: false
+    inbound_nodes:
+    - - - expand3_relu2
+        - 0
+        - 0
+        - {}
+    name: expand2_upconv
+  - class_name: Concatenate
+    config: {axis: -1, dtype: float32, name: concatenate_2, trainable: true}
+    inbound_nodes:
+    - - - cropping3d_2
+        - 0
+        - 0
+        - &id009 {}
+      - - expand2_upconv
+        - 0
+        - 0
+        - *id009
+    name: concatenate_2
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 128
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id006
+      name: expand2_conv1
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_2
+        - 0
+        - 0
+        - {}
+    name: expand2_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: expand2_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - expand2_conv1
+        - 0
+        - 0
+        - {}
+    name: expand2_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: expand2_relu1, trainable: true}
+    inbound_nodes:
+    - - - expand2_BN1
+        - 0
+        - 0
+        - {}
+    name: expand2_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 128
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id006
+      name: expand2_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - expand2_relu1
+        - 0
+        - 0
+        - {}
+    name: expand2_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: expand2_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - expand2_conv2
+        - 0
+        - 0
+        - {}
+    name: expand2_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: expand2_relu2, trainable: true}
+    inbound_nodes:
+    - - - expand2_BN2
+        - 0
+        - 0
+        - {}
+    name: expand2_relu2
+  - class_name: Cropping3D
+    config:
+      cropping: !!python/tuple
+      - !!python/tuple [40, 40]
+      - !!python/tuple [40, 40]
+      - !!python/tuple [40, 40]
+      data_format: channels_last
+      dtype: float32
+      name: cropping3d_3
+      trainable: true
+    inbound_nodes:
+    - - - contract1_relu2
+        - 0
+        - 0
+        - {}
+    name: cropping3d_3
+  - class_name: Conv3DTranspose
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dtype: float32
+      filters: !!python/object:tensorflow.python.framework.tensor_shape.Dimension {
+        _value: 128}
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id007
+      name: expand1_upconv
+      padding: same
+      strides: *id008
+      trainable: true
+      use_bias: false
+    inbound_nodes:
+    - - - expand2_relu2
+        - 0
+        - 0
+        - {}
+    name: expand1_upconv
+  - class_name: Concatenate
+    config: {axis: -1, dtype: float32, name: concatenate_3, trainable: true}
+    inbound_nodes:
+    - - - cropping3d_3
+        - 0
+        - 0
+        - &id010 {}
+      - - expand1_upconv
+        - 0
+        - 0
+        - *id010
+    name: concatenate_3
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 64
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id006
+      name: expand1_conv1
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_3
+        - 0
+        - 0
+        - {}
+    name: expand1_conv1
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: expand1_BN1
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - expand1_conv1
+        - 0
+        - 0
+        - {}
+    name: expand1_BN1
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: expand1_relu1, trainable: true}
+    inbound_nodes:
+    - - - expand1_BN1
+        - 0
+        - 0
+        - {}
+    name: expand1_relu1
+  - class_name: Conv3D
+    config:
+      activation: linear
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 64
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: *id006
+      name: expand1_conv2
+      padding: valid
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - expand1_relu1
+        - 0
+        - 0
+        - {}
+    name: expand1_conv2
+  - class_name: BatchNormalization
+    config:
+      axis: [4]
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      beta_regularizer: null
+      center: true
+      dtype: float32
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {dtype: float32}
+      name: expand1_BN2
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - expand1_conv2
+        - 0
+        - 0
+        - {}
+    name: expand1_BN2
+  - class_name: Activation
+    config: {activation: relu, dtype: float32, name: expand1_relu2, trainable: true}
+    inbound_nodes:
+    - - - expand1_BN2
+        - 0
+        - 0
+        - {}
+    name: expand1_relu2
+  - class_name: Conv3D
+    config:
+      activation: softmax
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {dtype: float32}
+      bias_regularizer: null
+      data_format: channels_last
+      dilation_rate: *id001
+      dtype: float32
+      filters: 2
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, dtype: float32, mode: fan_avg, scale: 1.0,
+          seed: null}
+      kernel_regularizer: null
+      kernel_size: !!python/tuple [1, 1, 1]
+      name: segmentation_2classes
+      padding: same
+      strides: *id003
+      trainable: true
+      use_bias: true
+    inbound_nodes:
+    - - - expand1_relu2
+        - 0
+        - 0
+        - {}
+    name: segmentation_2classes
+  name: model_1
+  output_layers:
+  - [segmentation_2classes, 0, 0]
+keras_version: 2.1.5-tf
+unet_version: v1
